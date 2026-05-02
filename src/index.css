@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "VT323", monospace;
+  --font-mono: "Share Tech Mono", monospace;
+}
+
+@layer base {
+  :root {
+    --cyan: #0ff;
+    --magenta: #f0f;
+    --bg-dark: #00020a;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--cyan);
+    font-family: var(--font-mono);
+    overflow: hidden;
+  }
+}
+
+.glitch-text {
+  position: relative;
+  font-family: var(--font-pixel);
+  text-shadow: 2px 0 var(--magenta), -2px 0 var(--cyan);
+  animation: staticNoise 0.2s infinite alternate;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-dark);
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--magenta);
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--cyan);
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, -1px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, -1px); }
+}
+
+@keyframes staticNoise {
+  0% { opacity: 0.9; }
+  100% { opacity: 1; text-shadow: 3px 0 var(--magenta), -3px 0 var(--cyan); }
+}
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: overlay;
+}
+
+.scanline {
+  width: 100%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  position: absolute;
+  top: -10px;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 51;
+}
+
+@keyframes scanline {
+  0% { top: -100px; }
+  100% { top: 110vh; }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Neon Void: Adaptive",
+  "description": "A glitch-art space shooter with algorithmic background music powered by the Web Audio API.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
